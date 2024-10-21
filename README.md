@@ -1,209 +1,173 @@
-**ParkNow: Smart Parking System**
 
-ParkNow is a complete solution for managing parking lots with smart, automated controls powered by Arduino components and a modern web interface. The system integrates hardware such as cameras and gates with real-time data to offer a seamless parking experience for users and administrators.
+# ParkNow
 
-**Table of Contents**
+ParkNow is a complete solution for managing parking lots with smart, automated controls powered by Arduino components and a modern web interface. The system integrates hardware such as cameras and gates with real-time data to offer a seamless parking experience for users and administrators.## Table of Contents
+1. [Features](#features)
+2. [Hardware Components](#hardware-components)
+3. [Technology Stack](#technology-stack)
+4. [Installation](#installation)
+5. [Frontend Overview](#frontend-overview)
+6. [Backend Overview](#backend-overview)
+7. [Environment Variables](#environment-variables)
+8. [Routes and Components](#routes-and-components)
+9. [Subscription Plans](#subscription-plans)
+## Features
 
-1.  Features
-2.  Hardware Components
-3.  Technology Stack
-4.  Installation
-5.  Frontend Overview
-6.  Backend Overview
-7.  Environment Variables
-8.  Routes and Components
-9.  Subscription Plans
+- **Multi-City Parking Management**: Manage parking lots across different cities.
+- **Hardware Integration**: Arduino-based system managing slots, gates, cameras.
+- **Smart Reservation System**: Reserve slots up to 24 hours or park for up to 6 hours without a reservation.
+- **Violation Detection**: Detects parking violations when trying to park in reserved spots.
+- **Occupancy Updates**: Real-time updates on parking lot occupancy using cameras and gates.
+- **License Plate Recognition**: Cameras capture car registration numbers and match them with the database.
+- **Web-based Admin Dashboard**: Admins can manage parking lots, monitor faults, track income, and more.
+- **Subscription-based System**: Different subscription tiers for users.
+- **Notifications**: Real-time notifications via socket.io for admins and users.
 
-**Features**
+## Hardware Components
 
-- **Automated Parking Management**: The system automates gate operations, parking slot allocation, and violations using smart hardware components.
-- **Multi-lot Support**: Support for multiple cities, each with areas, slots, and gates.
-- **Real-time Notifications**: Updates via WebSockets for slot occupancy, user reservations, and parking lot status.
-- **Smart Car Recognition**: Cameras attached to gates and slots capture car registration numbers for validation.
-- **Reservation System**: Users can reserve spots for up to 24 hours or park without reservations for 6 hours.
-- **Admin Dashboard**: Manage parking lots, monitor parking logs, track system faults, and send notifications.
-- **User Dashboard**: Book reservations, manage cars, and update account settings.
-- **Subscription Tiers**: Multiple subscription plans with integration to Stripe for payment handling and automated renewals.
+- **Arduino**: Controls gates and monitors parking slots.
+- **Cameras**: Installed at each gate and slot for license plate recognition.
+- **Gates**: Open or close based on reservation and parking availability.
+- **Slots**: Monitored to track availability.
+- **Sensors**: Used to detect car entry and exit, updating slot occupancy in real time.
+## Technology Stack
 
-**Hardware Components**
+- **Frontend**: React.js, NextUI, Socket.io
+- **Backend**: Node.js, Express, Prisma ORM
+- **Database**: PostgreSQL
+- **Authentication**: Passport.js (Local and Google OAuth), JWT with HTTP cookies, bcrypt for password hashing
+- **Security**: XSS protection (xss npm), SQL injection protection (Prisma), Zod for validation, CORS, Rate limiting against brute force attacks
+- **Payment**: Stripe for handling subscriptions and payments
+- **Real-time Updates**: Socket.io for notifications and parking lot occupancy updates
+## Installation
 
-The smart parking lot is controlled by Arduino components, with the following functionality:
+### Prerequisites
 
-- **Gates and Slots**: Each parking lot area has gates that only open if slots are available. Slots are monitored, and violations are logged if a reserved slot is misused.
-- **Cameras**: Cameras capture registration plates at both gates and slots. The system uses Optical Character Recognition (OCR) to convert images to text, matching them with the database for parking validation.
-- **Gate Operations**: If a parking lot is full, the gate will not open. When a car enters without a reservation, the system assigns the slot that has been available the longest.
+- Node.js
+- PostgreSQL
+- Arduino hardware setup
+- Stripe account for payments
 
-**Hardware Integration**:
+### Backend
 
-- The system updates slot occupancy in real-time, triggering gate operations and notifications based on the availability of slots.
-- Data from the Arduino components is fed into the web interface, giving users and admins live insights into the parking lot status.
+1. Clone the repository.
+   
+   git clone 
+   ```bash
+   cd ParkNow/backend
+   
+2. Install dependencies
 
-**Technology Stack**
+    ```bash
+    npm install
 
-- **Frontend**:
+3. Set up PostgreSQL database and update .env file with database credentials.
 
-- React with hooks (useState, useEffect)
-- NextUI for UI components
-- Axios for API requests
-- Socket.io for real-time updates
-- Stripe for payment processing
-- Framer Motion for animations
+4. Run SetupTrigger.js
+     ```bash
+    node Path_TO/db-postgres/setupTrigger.js
 
-- **Backend**:
+5. Run migrations.
+    ```bash
+    npx prisma migrate dev
 
-- Node.js with Express.js
-- PostgreSQL with Prisma ORM
-- JWT for authentication
-- WebSockets (Socket.io) for real-time interactions
-- Arduino for hardware control
+6. Start the backend server.
+    ```bash
+    npm run dev
 
-**Installation**
 
-1.  **Clone the repository**:\
-    bash\
-    Copy code
+### Backend
 
-    git clone https://github.com/your-repo/park-now.git
-
-2.  cd park-now
-3.
-
-4.  **Install dependencies**:\
-    bash\
-    Copy code
+1. Navigate to the frontend directory.
+    ```bash
+    cd ../frontend
+    
+2.Install dependencies.
 
     npm install
 
-5.
+3. Update the .env file with your environment variables (see below).
 
-6.  **Set up environment variables**:\
-    Add the required environment variables in .env files for both the frontend and backend. Refer to Environment Variables for details.
-7.  **Run the development servers**:\
-    bash\
-    Copy code
+4.Start the frontend server.
+    
+   
 
-    # Run backend
+    npm run dev
 
-8.  npm run dev-backend
+## Frontend Overview
 
-9.  # Run frontend
-10. npm run dev-frontend
-11.
+The frontend is built with React.js and NextUI for the design system, with the following main features:
 
-**Frontend Overview**
+- Booking System: Users can reserve parking slots in their chosen city.
+- User Dashboard: Users can manage their cars and account details.
+- Stripe Integration: For payment and subscription management.
+- Socket.io Notifications: Users get real-time updates about parking availability and violations.
+- Google and Local Login: Secure login with Google OAuth or via email/password.
+## Key Routes and Components
+- /login: User authentication with Google or email/password.
+- /signup: User registration.
+- /UserDashboard: Manage reservations, cars, and account settings.
+- /AdminDashboard: Admin controls for managing parking lots, 
+- monitoring faults, sending notifications, and viewing analytics.
+## Backend Overview
 
-**Key Components:**
+The backend is built with **Node.js** and **Express**, using **Prisma ORM** for database interactions, and **Socket.io** for real-time communication.
 
-- **HeroSection**: The welcome page displaying user-specific actions.
-- **UserDashboard**: Contains sub-sections for booking parking spots, managing cars, and updating account settings.
-- **AdminDashboard**: Used by admins to manage parking lots, monitor income and occupancy, and view logs.
-- **Subscriptions**: Allows users to choose subscription plans and make payments using Stripe.
-- **Notifications**: Real-time notifications via WebSockets.
+- **Authentication**: Passport.js with JWT and Google OAuth.
+- **Subscription Management**: Stripe integration for handling user payments and subscription plans.
+- **Real-time Occupancy Tracking**: Updates on parking lot occupancy are sent via Socket.io.
+- **Notifications**: Admins can send notifications to users or broadcast updates.
+## Environment Variables
 
-**Frontend Routing:**
+You need to set the following environment variables:
 
-- **Public Routes**:
+### Frontend
 
-- /: Landing page
-- /login: User login page
-- /signup: User registration page
-- /subscriptions: View subscription plans
+    VITE_API_URL=http://localhost:3001/api
+    VITE_GOOGLE_CLIENT_ID=YOUR_GOOGLE_CLIENT_ID
+    VITE_STRIPE_PUBLISHABLE_KEY=YOUR_STRIPE_PUBLISHABLE_KEY
+    VITE_CALLBACK_URL=http://localhost:3001/api/users/google/callback
 
-- **User Routes** (Protected):
+### Backend
+    DB_USER=postgres
+    DB_HOST=localhost
+    DB_DATABASE=ParkingLot_DB
+    DB_PASSWORD=yourpassword
+    DB_PORT=5432
+    PORT=3001
+    STRIPE_SECRET_KEY=YOUR_STRIPE_SECRET_KEY
+    JWT_SECRET=your_jwt_secret
+    GOOGLE_CLIENT_ID=YOUR_GOOGLE_CLIENT_ID
+    GOOGLE_CLIENT_SECRET=YOUR_GOOGLE_CLIENT_SECRET
 
-- /UserDashboard: Manage reservations, cars, and account settings
 
-- **Admin Routes** (Protected):
+## Subscription Plans
 
-- /AdminDashboard: Admin functionalities like managing lots, notifications, and system monitoring
+We offer three subscription tiers for users:
 
-**Backend Overview**
+- **Single**: $50/year, 1 car allowed, 2 active reservations
+- **Family**: $100/year, 2 cars allowed, 6 active reservations
+- **Enterprise**: $500/year, 15 cars allowed, 10 active reservations, 24/7 support, enterprise-level access
 
-The backend is built with Node.js and Express, and connects to a PostgreSQL database via Prisma. It provides APIs for authentication, parking management, notifications, and payment handling. Key backend features:
+## Admin Dashboard
 
-- **Authentication**: JWT-based authentication, Google OAuth, and secure password handling with bcrypt.
-- **WebSockets**: Real-time updates on parking slot availability and notifications.
-- **Hardware Integration**: Manages Arduino-triggered operations for gates and slots, updating slot occupancy.
-- **Cron Jobs**: Scheduled jobs check for expired subscriptions daily and clean up outdated reservations.
+The admin dashboard provides an overview of parking lot data and allows for CRUD operations on parking lots, gates, and slots. It includes features like:
 
-**API Endpoints:**
+- **Occupancy Monitoring**: Real-time updates on slot occupancy.
+- **Fault Monitoring**: View and track hardware faults.
+- **Notifications**: Send notifications to users and monitor recent logs.
+- **Income Reports**: View total income from subscription plans.
+- **User Management**: Manage users, view recent sign-ups and parking activity.
 
-- **Auth API**:
+## Users Dashboard
 
-- POST /api/users/signup: Register a new user
-- POST /api/users/login: Log in a user
-- GET /api/users/details: Fetch user details
+sers have access to three main sections:
 
-- **Parking API**:
+- **Book**: Reserve a parking spot in any available city.
+- **Cars**: Manage their cars (add, edit, delete).
+- **Account Settings**: Update personal details, change password, manage subscription.
 
-- GET /api/parkinglots: Fetch available parking lots
-- POST /api/parking/reservation: Reserve a parking spot
-- DELETE /api/parking/reservation: Cancel a reservation
+**Note**: The system also utilizes **cron jobs** to manage periodic tasks such as:
 
-- **Admin API**:
-
-- POST /api/admin/parkinglot: Add a new parking lot
-- PUT /api/admin/parkinglot/:id: Update parking lot details
-- DELETE /api/admin/parkinglot/:id: Remove a parking lot
-
-**Environment Variables**
-
-**Frontend** (.env):
-
-makefile
-
-Copy code
-
-VITE_API_URL=http://localhost:3001/api
-
-VITE_GOOGLE_CLIENT_ID=<Google_Client_ID>
-
-VITE_STRIPE_TEST_PUBLISHABLE_KEY=<Stripe_Publishable_Key>
-
-**Backend** (.env):
-
-makefile
-
-Copy code
-
-DB_USER=postgres
-
-DB_HOST=localhost
-
-DB_DATABASE=ParkingLot_DB
-
-DB_PASSWORD=<your_password>
-
-DB_PORT=5432
-
-JWT_SECRET=<your_jwt_secret>
-
-STRIPE_SECRET_KEY=<your_stripe_secret_key>
-
-**Routes and Components**
-
-**User Routes:**
-
-- /UserDashboard: Main user dashboard for reservations and account management
-- /UserDashboard/Cars: Manage user cars
-- /UserDashboard/AccountSettings: Update user account details
-
-**Admin Routes:**
-
-- /AdminDashboard: Admin overview page
-- /AdminDashboard/ParkingLots: Manage parking lots, areas, gates, and slots
-- /AdminDashboard/Notifications: Send notifications to users
-
-**Subscription Plans**
-
-The system offers three subscription tiers with Stripe for secure payments:
-
-- **Single Plan**: $50/year, allows 1 car and 2 active reservations.
-- **Family Plan**: $100/year, allows 2 cars and 6 active reservations.
-- **Enterprise Plan**: $500/year, allows 15 cars, 10 active reservations, premium booking features, and 24/7 support.
-
-**Subscription Features**:
-
-- Upgrade or cancel subscriptions at any time.
-- Automatic renewal after one year.
-- Stripe integration for secure payments and subscriptions management.
+- Checking for expired subscriptions.
+- Deleting old reservations.
