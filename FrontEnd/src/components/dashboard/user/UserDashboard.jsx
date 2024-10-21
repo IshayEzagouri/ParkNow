@@ -7,7 +7,7 @@ import { motion } from 'framer-motion';
 import { cn } from '../../../lib/utils';
 import { fetchUserDetails } from '../../../api/userApi';
 import { BookSlot } from '../user/screens/BookSlot';
-
+import { AccountSettings } from '../user/screens/AccountSettings';
 import { Cars } from '../user/screens/Cars'; // Cars view component
 
 function UserDashboard() {
@@ -19,6 +19,7 @@ function UserDashboard() {
     const handleUserData = async () => {
       try {
         const userInfo = await fetchUserDetails();
+        console.log('user info in user dashboard', userInfo);
         setUserData(userInfo);
       } catch (error) {
         setUserDataError('An error occurred while fetching user details.');
@@ -40,8 +41,8 @@ function UserDashboard() {
       icon: <IconCar className='text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0' />
     },
     {
-      label: 'Account',
-      href: '/UserDashboard/Account',
+      label: 'Account Settings',
+      href: '/UserDashboard/Accountsettings',
       icon: <IconSettings className='text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0' />
     }
   ];
@@ -68,7 +69,7 @@ function UserDashboard() {
               <SidebarLink
                 link={{
                   label: `${userData.FirstName || 'User'} ${userData.LastName || ''}`,
-                  href: '#',
+                  href: '/UserDashboard/accountsettings',
                   icon: (
                     <LazyLoadImage
                       src='https://i.pravatar.cc/150?u=a042581f4e29026704d'
@@ -96,6 +97,7 @@ function UserDashboard() {
         <Routes>
           <Route path='/*' element={<BookSlot userData={userData} />} />
           <Route path='/Cars/*' element={<Cars userData={userData} />} />
+          <Route path='/AccountSettings' element={<AccountSettings userData={userData} />} />
         </Routes>
         <Outlet />
       </div>

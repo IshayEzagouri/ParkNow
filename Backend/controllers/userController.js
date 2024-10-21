@@ -13,61 +13,68 @@ const getActiveUsers = (req, res) => {
   res.status(200).json({ message: 'Users retrieved successfully' });
 };
 const updateUser = async (req, res) => {
-  const id = parseInt(req.params.id); // Convert id to integer if it's a string
   const idFromToken = req.user.id;
-
-  if (id !== idFromToken) {
-    return res.status(403).json({ message: 'You are not authorized to update this account' });
-  }
-
-  const { currentPassword, newPassword, confirmNewPassword, ...data } = req.body;
+  const { FirstName, LastName, Phone, Email } = req.body;
 
   try {
-    // Sanitize the input data
-    const sanitizedData = sanitizeObject(data, ['FirstName', 'LastName', 'Phone', 'Email']);
+    // Sanitize input data
+    const sanitizedData = sanitizeObject({ FirstName, LastName, Phone, Email }, ['FirstName', 'LastName', 'Phone', 'Email']);
 
-    // Handle password update
-    let passwordUpdate = {};
-    if (currentPassword && newPassword && confirmNewPassword) {
-      // Fetch the current user data to compare
-      const currentUser = await prisma.users.findUnique({
-        where: { idUsers: id },
-        select: { Password: true }
-      });
+    // Update the user information
+    const updatedUser = await prisma.users.update({
+      where: { idUsers: idFromToken },
+      data: sanitizedData
+    });
 
-      if (!currentUser) {
-        return res.status(404).json({ message: 'User not found' });
-      }
-
-      const isPasswordValid = await bcrypt.compare(currentPassword, currentUser.Password);
-
-      if (!isPasswordValid) {
-        return res.status(401).json({ message: 'Invalid current password' });
-      }
-
-      // Validate new password
-      if (newPassword !== confirmNewPassword) {
-        return res.status(400).json({ message: 'New passwords do not match' });
-      }
-
-      // Hash new password
-      const hashedPassword = await bcrypt.hash(newPassword, saltRounds);
-      passwordUpdate.Password = hashedPassword;
-    }
-
-    // Combine sanitized data and password update
-    const combinedData = { ...sanitizedData, ...passwordUpdate };
-
-    // Update the user using the model function
-    const result = await updateUserById(id, combinedData);
-
-    if (result.success) {
-      return res.status(200).json({ message: result.message, user: result.user });
-    } else {
-      return res.status(404).json({ message: result.message });
-    }
+    return res.status(200).json({ message: 'User information updated successfully', user: updatedUser });
   } catch (error) {
-    console.error('Error updating user:', error.message);
+    console.error('Error updating user information:', error.message);
+    return res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
+const updateUserPassword = async (req, res) => {
+  const idFromToken = req.user.id; // User ID from JWT token
+  const { currentPassword, newPassword, confirmNewPassword } = req.body;
+
+  try {
+    if (!currentPassword || !newPassword || !confirmNewPassword) {
+      return res.status(400).json({ message: 'All password fields are required' });
+    }
+
+    // Fetch the current user's password from the database
+    const currentUser = await prisma.users.findUnique({
+      where: { idUsers: idFromToken },
+      select: { Password: true }
+    });
+
+    if (!currentUser) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Compare current password with the stored hashed password
+    const isPasswordValid = await bcrypt.compare(currentPassword, currentUser.Password);
+    if (!isPasswordValid) {
+      return res.status(401).json({ message: 'Invalid current password' });
+    }
+
+    // Check if new passwords match
+    if (newPassword !== confirmNewPassword) {
+      return res.status(400).json({ message: 'New passwords do not match' });
+    }
+
+    // Hash the new password before storing it in the database
+    const hashedPassword = await bcrypt.hash(newPassword, saltRounds);
+
+    // Update the user's password in the database
+    await prisma.users.update({
+      where: { idUsers: idFromToken },
+      data: { Password: hashedPassword }
+    });
+
+    return res.status(200).json({ message: 'Password updated successfully' });
+  } catch (error) {
+    console.error('Error updating password:', error.message);
     return res.status(500).json({ message: 'Internal server error' });
   }
 };
@@ -590,5 +597,6 @@ module.exports = {
   markNotificationsAsRead,
   fetchUnreadNotificationsCount,
   fetchUserNotifications,
-  markSingleNotificationRead
+  markSingleNotificationRead,
+  updateUserPassword
 };

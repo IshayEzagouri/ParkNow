@@ -340,3 +340,26 @@ export const markSingleNotificationRead = async (notificationId) => {
     throw error;
   }
 };
+
+export const updateUserInfo = async (FirstName, LastName, Phone, Email) => {
+  try {
+    const response = await api.put('/update-user-info', { FirstName, LastName, Phone, Email }, { withCredentials: true });
+    console.log('updated user info ', response.data);
+    return response.data;
+  } catch (error) {
+    console.error('Error updating user info:', error);
+    throw error;
+  }
+};
+
+//router.put('/change-pass', authenticateJWT, updateUserPassword);
+export const changePass = async (currentPassword, newPassword, confirmNewPassword) => {
+  try {
+    const response = await api.put('/change-pass', { currentPassword, newPassword, confirmNewPassword }, { withCredentials: true });
+    console.log('changed pass:', response.data);
+    return response.data;
+  } catch (error) {
+    console.error('Error changing password:', error);
+    throw error;
+  }
+};
