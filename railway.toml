@@ -1,7 +1,8 @@
-[services.backend]
-  command = "cd backend && npm install"
-  start = "cd backend && npm run start"
+[services.Backend]
+  command = "cd Backend && npm install"
+  start = "cd Backend && npm run start"
 
-[services.frontend]
-  command = "cd frontend && npm install && npm run build"
-  start = "cd frontend && npm start"
+[services.Frontend]
+  command = "cd Frontend && npm install && npm run build"
+  start = "cd Frontend && npm start"
+
