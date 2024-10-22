@@ -1,8 +1,7 @@
 [services.backend]
-  command = "cd backend && npm install --omit=dev"
-  start = "cd backend && npm run start"
-
+  command = "cd Backend && npm install --omit=dev"
+  start = "cd Backend && npm run start"
 
 [services.frontend]
-  command = "cd frontend && npm install && npm run build"
-  start = "cd frontend && npm start"
+  command = "cd Frontend && npm install && npm run build"
+  start = "cd Frontend && npm start"
