@@ -1,13 +1,8 @@
 [services.backend]
-  command = """
-    cd Backend && \
-    npm install bcrypt cookie-parser cors csurf date-fns date-fns-tz dotenv express express-rate-limit google-auth-library helmet jsonwebtoken node-cron passport passport-google-oauth20 passport-jwt passport-local pg router socket.io stripe xss zod && \
-    npm install @prisma/client && \
-    npm install --omit=dev
-  """
+  command = "cd Backend && npm install && npm install node-cron"
   start = "cd Backend && npm run start"
 
 
 [services.frontend]
-  command = "cd Frontend && echo 'Installing frontend dependencies...' && npm install && npm run build"
-  start = "cd Frontend && echo 'Starting frontend...' && npm start"
+  command = "cd Frontend && npm install && npm run build"
+  start = "cd Frontend && npm start"
