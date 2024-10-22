@@ -1,5 +1,5 @@
 [services.backend]
-  command = "cd Backend && npm install && npm install node-cron"
+command = "cd Backend && npm cache clean --force && npm install"
   start = "cd Backend && npm run start"
 
 
