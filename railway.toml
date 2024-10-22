@@ -1,8 +1,7 @@
 [services.backend]
-command = "cd Backend && npm cache clean --force && npm install"
-  start = "cd Backend && npm run start"
-
+command = "cd Backend && npm cache clean --force && npm install && npm run build"
+start = "cd Backend && npm run start"
 
 [services.frontend]
-  command = "cd Frontend && npm install && npm run build"
-  start = "cd Frontend && npm start"
+command = "cd Frontend && npm install && npm run build"
+start = "cd Frontend && npm start"
