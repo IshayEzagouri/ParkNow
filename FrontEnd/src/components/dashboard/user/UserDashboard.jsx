@@ -6,9 +6,9 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { motion } from 'framer-motion';
 import { cn } from '../../../lib/utils';
 import { fetchUserDetails } from '../../../api/userApi';
-import { BookSlot } from '../user/screens/BookSlot';
-import { AccountSettings } from '../user/screens/AccountSettings';
-import { Cars } from '../user/screens/Cars'; // Cars view component
+import { BookSlot } from './screens/BookSlot';
+import { AccountSettings } from './screens/AccountSettings';
+import { Cars } from './screens/Cars'; // Cars view component
 
 function UserDashboard() {
   const [userData, setUserData] = useState(null);

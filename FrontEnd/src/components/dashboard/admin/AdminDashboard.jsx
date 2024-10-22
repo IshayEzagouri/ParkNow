@@ -6,7 +6,7 @@ import { IconArrowLeft, IconBrandTabler, IconSettings, IconUserBolt, IconParking
 import { motion } from 'framer-motion';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { fetchUserDetails } from '../../../api/userApi';
-import { ParkingLots } from '../admin/DashBoardScreens/ParkingLots';
+import { ParkingLots } from './DashBoardScreens/ParkingLots';
 import { Overview } from './DashBoardScreens/Overview';
 
 function AdminDashboard() {
