@@ -2,7 +2,7 @@ const pool = require('../db-postgres/db_config');
 const prisma = require('../prisma/prismaClient');
 const bcrypt = require('bcrypt');
 const { z } = require('zod');
-const { fetchAverageParkingTimeByUser } = require('../models/parkingModel');
+const { fetchAverageParkingTimeByUser } = require('./parkingModel');
 const { hashPassword } = require('../utils/passwordUtils');
 const { convertToISODate } = require('../utils/dateUtils');
 const {
