@@ -5,4 +5,3 @@
 [services.Frontend]
   command = "cd Frontend && npm install && npm run build"
   start = "cd Frontend && npm start"
-
