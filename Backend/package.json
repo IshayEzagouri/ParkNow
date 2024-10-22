@@ -3,10 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "dev": "node --env-file=.env --watch socket.js",
-
-    "build": "babel src -d dist",
-    "start": "node socket.js"
+  "dev": "nodemon socket.js",
+  "start": "node socket.js"
   },
   "dependencies": {
     "@prisma/client": "^5.18.0",
