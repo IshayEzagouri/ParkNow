@@ -1,9 +1,9 @@
 # For the backend service
 [services.backend]
-  command = "cd backend && npm install && npm run build"
+  command = "cd backend && npm install"
   start = "cd backend && npm start"
 
-# For the frontend service (if using a static React site)
+# For the frontend service (React)
 [services.frontend]
   command = "cd frontend && npm install && npm run build"
-  start = "cd frontend && npm run serve"
+  start = "cd frontend && npm start"
