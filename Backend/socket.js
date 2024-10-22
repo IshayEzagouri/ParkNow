@@ -1,8 +1,7 @@
-require('./utils/cronJobs');
+//require('./utils/cronJobs');
 console.log('test');
 
-require('dotenv').config();
-console.log('test');
+//require('dotenv').config();
 
 const http = require('http');
 const prisma = require('./prisma/prismaClient');
