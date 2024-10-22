@@ -3,12 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "dev": "node --env-file=.env --watch socket.js"
+    "dev": "node --env-file=.env --watch socket.js",
+    "start": "node socket.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
   "dependencies": {
     "@prisma/client": "^5.18.0",
     "autoprefixer": "^10.4.20",
@@ -25,10 +22,8 @@
     "express-rate-limit": "^7.4.1",
     "google-auth-library": "^9.14.0",
     "helmet": "^7.1.0",
-    "install": "^0.13.0",
     "jsonwebtoken": "^9.0.2",
     "node-cron": "^3.0.3",
-    "npm": "^10.8.2",
     "passport": "^0.7.0",
     "passport-google-oauth20": "^2.0.0",
     "passport-jwt": "^4.0.1",
