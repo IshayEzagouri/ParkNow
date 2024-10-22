@@ -1,6 +1,7 @@
 [services.backend]
   command = "cd backend && npm install"
+  start = "cd backend && npm run start"
 
 [services.frontend]
   command = "cd frontend && npm install && npm run build"
-  start = "cd frontend && npm start"  
+  start = "cd frontend && npm start"
