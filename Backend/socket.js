@@ -1,3 +1,4 @@
+console.log('test');
 require('dotenv').config();
 require('../backend/utils/cronJobs');
 const http = require('http');
