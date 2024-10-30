@@ -1,6 +1,7 @@
 [services.backend]
-command = "cd Backend && echo 'Installing dependencies in Backend...' && npm install" 
+command = "cd Backend && npm install" 
 start = "cd Backend && npm run start"
+
 
 [services.frontend]
 command = "cd Frontend && npm install && npm run build" 
