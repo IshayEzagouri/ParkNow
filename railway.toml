@@ -1,9 +1,6 @@
 [services.backend]
-[services.backend]
-command = "cd Backend && npm install && npx prisma generate"
-start = "cd Backend && npx prisma generate && npm run start"
-
-
+command = "cd Backend && rm -rf node_modules && npm install && npx prisma generate"
+start = "cd Backend && npm run start"
 
 [services.frontend]
 command = "cd Frontend && npm install && npm run build" 
