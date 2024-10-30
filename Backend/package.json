@@ -4,7 +4,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node socket.js",
-    "dev": "nodemon socket.js"
+    "dev": "nodemon socket.js",
+    "postinstall": "npx prisma generate"
   },
 
   "engines": {

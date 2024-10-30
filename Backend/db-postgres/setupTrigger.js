@@ -1,4 +1,4 @@
-const prisma = require('../prisma/prismaClient');
+const prisma = require('../../backend/prisma/prismaClient');
 
 async function setupDatabase() {
   try {
