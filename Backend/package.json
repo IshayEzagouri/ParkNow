@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "node socket.js",
+   "start": "npm run generate:prisma && node socket.js",
     "dev": "nodemon socket.js",
-    "generate:prisma": "npx prisma generate && echo 'Prisma Client generated successfully'"
+    "generate:prisma": "npx prisma generate > generate_log.txt 2>&1 && cat generate_log.txt && echo 'Prisma Client generated successfully' && sleep 5"
   },
 
   "engines": {

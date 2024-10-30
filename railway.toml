@@ -1,6 +1,6 @@
 [services.backend]
 command = "cd Backend && rm -rf node_modules && npm install && npm run generate:prisma"
-start = "cd Backend && npm run start"
+start = "cd Backend && node socket.js"
 
 
 [services.frontend]
