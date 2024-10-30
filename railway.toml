@@ -1,5 +1,5 @@
 [services.backend]
-command = "cd Backend && rm -rf node_modules && npm install && npx prisma generate && echo 'Prisma Client generated'"
+command = "cd Backend && rm -rf node_modules && npm install && echo 'Installing dependencies complete' && npx prisma generate && echo 'Prisma Client generated successfully'"
 start = "cd Backend && npm run start"
 
 
