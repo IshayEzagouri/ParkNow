@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node socket.js",
     "dev": "nodemon socket.js",
-    "postinstall": "npx prisma generate"
+    "generate:prisma": "npx prisma generate && echo 'Prisma Client generated successfully'"
   },
 
   "engines": {
