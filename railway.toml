@@ -1,9 +1,33 @@
-# Backend service
 [services.backend]
-command = "cd Backend && rm -rf node_modules && npm install && npm run generate:prisma"
-start = "cd Backend && npm run start"
+env = { SERVICE_TYPE = "backend" }
+command = """
+if [ "$SERVICE_TYPE" = "backend" ]; then
+  cd Backend && rm -rf node_modules && npm install && npm run generate:prisma && echo 'Backend setup complete';
+else
+  echo 'SERVICE_TYPE not set to backend. Exiting.' && exit 1;
+fi
+"""
+start = """
+if [ "$SERVICE_TYPE" = "backend" ]; then
+  cd Backend && npm run start;
+else
+  echo 'SERVICE_TYPE not set to backend. Exiting.' && exit 1;
+fi
+"""
 
-# Frontend service
 [services.frontend]
-command = "cd Frontend && npm install && npm run build"
-start = "cd Frontend && npm start"
+env = { SERVICE_TYPE = "frontend" }
+command = """
+if [ "$SERVICE_TYPE" = "frontend" ]; then
+  cd Frontend && rm -rf node_modules && npm install && npm run build && echo 'Frontend build complete';
+else
+  echo 'SERVICE_TYPE not set to frontend. Exiting.' && exit 1;
+fi
+"""
+start = """
+if [ "$SERVICE_TYPE" = "frontend" ]; then
+  cd Frontend && npm start;
+else
+  echo 'SERVICE_TYPE not set to frontend. Exiting.' && exit 1;
+fi
+"""
