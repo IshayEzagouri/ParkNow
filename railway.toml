@@ -30,3 +30,4 @@ if [ "$SERVICE_TYPE" = "frontend" ]; then
 else
   echo 'SERVICE_TYPE not set to frontend. Exiting.' && exit 1;
 fi
+"""
