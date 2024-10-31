@@ -1,9 +1,9 @@
+# Backend service
 [services.backend]
-env = { SERVICE_TYPE = "backend" }
 command = "cd Backend && rm -rf node_modules && npm install && npm run generate:prisma"
 start = "cd Backend && npm run start"
 
+# Frontend service
 [services.frontend]
-env = { SERVICE_TYPE = "frontend" }
 command = "cd Frontend && npm install && npm run build"
 start = "cd Frontend && npm start"
