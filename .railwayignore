@@ -1,0 +1,9 @@
+node_modules/
+Frontend/node_modules/
+Backend/node_modules/
+logs/
+Frontend/dist/
+Backend/build/
+*.log
+*.jpg
+*.png
