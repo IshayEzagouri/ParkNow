@@ -1,7 +1,7 @@
-
 # ParkNow
 
 ParkNow is a complete solution for managing parking lots with smart, automated controls powered by Arduino components and a modern web interface. The system integrates hardware such as cameras and gates with real-time data to offer a seamless parking experience for users and administrators.## Table of Contents
+
 1. [Features](#features)
 2. [Hardware Components](#hardware-components)
 3. [Technology Stack](#technology-stack)
@@ -11,6 +11,8 @@ ParkNow is a complete solution for managing parking lots with smart, automated c
 7. [Environment Variables](#environment-variables)
 8. [Routes and Components](#routes-and-components)
 9. [Subscription Plans](#subscription-plans)
+10. [Test Account for Demonstration](#Test-Account-for-Demonstration)
+
 ## Features
 
 - **Multi-City Parking Management**: Manage parking lots across different cities.
@@ -30,6 +32,7 @@ ParkNow is a complete solution for managing parking lots with smart, automated c
 - **Gates**: Open or close based on reservation and parking availability.
 - **Slots**: Monitored to track availability.
 - **Sensors**: Used to detect car entry and exit, updating slot occupancy in real time.
+
 ## Technology Stack
 
 - **Frontend**: React.js, NextUI, Socket.io
@@ -39,6 +42,7 @@ ParkNow is a complete solution for managing parking lots with smart, automated c
 - **Security**: XSS protection (xss npm), SQL injection protection (Prisma), Zod for validation, CORS, Rate limiting against brute force attacks
 - **Payment**: Stripe for handling subscriptions and payments
 - **Real-time Updates**: Socket.io for notifications and parking lot occupancy updates
+
 ## Installation
 
 ### Prerequisites
@@ -51,37 +55,51 @@ ParkNow is a complete solution for managing parking lots with smart, automated c
 ### Backend
 
 1. Clone the repository.
-   
-   git clone 
+
+   git clone
+
    ```bash
    cd ParkNow/backend
-   
+
+   ```
+
 2. Install dependencies
 
-    ```bash
-    npm install
+   ```bash
+   npm install
+
+   ```
 
 3. Set up PostgreSQL database and update .env file with database credentials.
 
 4. Run SetupTrigger.js
-     ```bash
-    node Path_TO/db-postgres/setupTrigger.js
+
+   ```bash
+   node Path_TO/db-postgres/setupTrigger.js
+
+   ```
 
 5. Run migrations.
-    ```bash
-    npx prisma migrate dev
+
+   ```bash
+   npx prisma migrate dev
+
+   ```
 
 6. Start the backend server.
-    ```bash
-    npm run dev
-
+   ```bash
+   npm run dev
+   ```
 
 ### Backend
 
 1. Navigate to the frontend directory.
-    ```bash
-    cd ../frontend
-    
+
+   ```bash
+   cd ../frontend
+
+   ```
+
 2.Install dependencies.
 
     npm install
@@ -89,8 +107,6 @@ ParkNow is a complete solution for managing parking lots with smart, automated c
 3. Update the .env file with your environment variables (see below).
 
 4.Start the frontend server.
-    
-   
 
     npm run dev
 
@@ -103,12 +119,15 @@ The frontend is built with React.js and NextUI for the design system, with the f
 - Stripe Integration: For payment and subscription management.
 - Socket.io Notifications: Users get real-time updates about parking availability and violations.
 - Google and Local Login: Secure login with Google OAuth or via email/password.
+
 ## Key Routes and Components
+
 - /login: User authentication with Google or email/password.
 - /signup: User registration.
 - /UserDashboard: Manage reservations, cars, and account settings.
-- /AdminDashboard: Admin controls for managing parking lots, 
+- /AdminDashboard: Admin controls for managing parking lots,
 - monitoring faults, sending notifications, and viewing analytics.
+
 ## Backend Overview
 
 The backend is built with **Node.js** and **Express**, using **Prisma ORM** for database interactions, and **Socket.io** for real-time communication.
@@ -117,6 +136,7 @@ The backend is built with **Node.js** and **Express**, using **Prisma ORM** for 
 - **Subscription Management**: Stripe integration for handling user payments and subscription plans.
 - **Real-time Occupancy Tracking**: Updates on parking lot occupancy are sent via Socket.io.
 - **Notifications**: Admins can send notifications to users or broadcast updates.
+
 ## Environment Variables
 
 You need to set the following environment variables:
@@ -129,6 +149,7 @@ You need to set the following environment variables:
     VITE_CALLBACK_URL=http://localhost:3001/api/users/google/callback
 
 ### Backend
+
     DB_USER=postgres
     DB_HOST=localhost
     DB_DATABASE=ParkingLot_DB
@@ -139,7 +160,6 @@ You need to set the following environment variables:
     JWT_SECRET=your_jwt_secret
     GOOGLE_CLIENT_ID=YOUR_GOOGLE_CLIENT_ID
     GOOGLE_CLIENT_SECRET=YOUR_GOOGLE_CLIENT_SECRET
-
 
 ## Subscription Plans
 
@@ -171,3 +191,9 @@ sers have access to three main sections:
 
 - Checking for expired subscriptions.
 - Deleting old reservations.
+
+## Test Account for Demonstration
+
+For testing purposes, a user account with both user and admin privileges is available:
+
+-**Email**: ishay7@gmail.com -**Password**: asdasd
