@@ -1,4 +1,3 @@
-// io.js
 let io;
 
 module.exports = {
@@ -6,7 +5,7 @@ module.exports = {
     const { Server } = require('socket.io');
     io = new Server(server, {
       cors: {
-        origin: [process.env.FRONTEND_URL || 'http://localhost:3000'],
+        origin: [process.env.FRONTEND_URL || 'http://localhost:3000', 'https://frontend-production-cb7a.up.railway.app'],
         methods: ['GET', 'POST'],
         credentials: true
       }

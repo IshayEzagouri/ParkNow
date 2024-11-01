@@ -15,7 +15,7 @@ const pgPool = new Pool({
 });
 
 const availableSpotsMap = new Map();
-const frontendURL = process.env.FRONTEND_URL || 'http://localhost:3000';
+const frontendURL = process.env.FRONTEND_URL || 'http://localhost:3000' || 'https://frontend-production-cb7a.up.railway.app';
 
 // HTTP server creation
 const server = http.createServer(app);

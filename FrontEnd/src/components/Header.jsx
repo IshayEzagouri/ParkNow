@@ -5,7 +5,7 @@ import { Link, useLocation } from 'react-router-dom';
 import ThemeSwitcher from './ThemeSwitcher';
 import { useTheme } from '../Context/ThemeContext';
 import NotificationBadge from './NotificationBadge';
-import { fetchUserDetails, fetchUnreadNotificationsCount } from '../api/userApi'; // Add this new API call
+import { fetchUserDetails, fetchUnreadNotificationsCount } from '../api/userApi';
 import { io } from 'socket.io-client';
 
 const Header = () => {
@@ -13,8 +13,8 @@ const Header = () => {
   const { isAuthenticated, loading, logoutUser } = useAuth();
   const location = useLocation();
 
-  const [socket, setSocket] = useState(null); // State to hold socket connection
-  const [notificationsCount, setNotificationsCount] = useState(0); // Notification count state
+  const [socket, setSocket] = useState(null);
+  const [notificationsCount, setNotificationsCount] = useState(0);
   const [userData, setUserData] = useState(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -26,30 +26,29 @@ const Header = () => {
 
   const isActivePath = (path) => location.pathname === path;
 
-  // Fetch user data and set up socket connection
+  // Set up backend URL based on environment
+  const backendURL =
+    process.env.NODE_ENV === 'production'
+      ? 'https://parknow-backend.up.railway.app' // Production URL
+      : 'http://localhost:3001'; // Local URL
+
   useEffect(() => {
     const handleUserData = async () => {
       try {
         const userInfo = await fetchUserDetails();
         setUserData(userInfo);
 
-        // Fetch unread notification count only once
         const unreadCount = await fetchUnreadNotificationsCount();
         setNotificationsCount(unreadCount);
 
-        // Initialize socket connection with userId only after fetching user details
+        // Initialize socket connection with the correct backend URL and user ID
         if (userInfo?.idUsers && !socket) {
-          console.log('user id in header is ', userInfo.idUsers);
-          const socketConnection = io('http://localhost:3001', {
-            auth: {
-              userId: userInfo.idUsers // Pass the actual user ID here
-            }
+          const socketConnection = io(backendURL, {
+            auth: { userId: userInfo.idUsers }
           });
 
-          // Set socket in state
           setSocket(socketConnection);
 
-          // Set up listeners
           socketConnection.on('new-notification', (notification) => {
             if (notification.userId === null || notification.userId === userInfo.idUsers) {
               setNotificationsCount((prevCount) => prevCount + 1);
@@ -70,9 +69,9 @@ const Header = () => {
     };
 
     if (!userData) {
-      handleUserData(); // Fetch user data only once on mount if not already fetched
+      handleUserData();
     }
-  }, [userData, socket]); // Add userData and socket as dependencies to avoid repeated requests
+  }, [userData, socket]);
 
   return (
     <Navbar isMenuOpen={isMenuOpen} onMenuOpenChange={setIsMenuOpen} isBordered isBlurred={true} className={isDarkMode ? 'bg-dark-bg' : ''}>
@@ -102,8 +101,7 @@ const Header = () => {
         className={`transition-opacity duration-500 ease-in-out ${loading ? 'opacity-0 invisible' : 'opacity-100 visible'}`}
         justify='end'
       >
-        {isAuthenticated && <NotificationBadge setNotificationsCount={setNotificationsCount} notificationsCount={notificationsCount} />}{' '}
-        {/* Updated Badge */}
+        {isAuthenticated && <NotificationBadge setNotificationsCount={setNotificationsCount} notificationsCount={notificationsCount} />}
         <NavbarItem>
           <ThemeSwitcher setIsDarkMode={setIsDarkMode} isDarkMode={isDarkMode} />
         </NavbarItem>
