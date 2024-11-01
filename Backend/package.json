@@ -3,14 +3,13 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-   "start": "npm run generate:prisma && node socket.js",
+    "start": "npm run generate:prisma && node socket.js",
     "dev": "nodemon socket.js",
     "generate:prisma": "npx prisma generate > generate_log.txt 2>&1 && cat generate_log.txt && echo 'Prisma Client generated successfully' && sleep 5"
   },
-
   "engines": {
-  "node": "18.x"
-},
+    "node": "18.x"
+  },
   "dependencies": {
     "@prisma/client": "^5.18.0",
     "autoprefixer": "^10.4.20",
@@ -29,6 +28,7 @@
     "helmet": "^7.1.0",
     "jsonwebtoken": "^9.0.2",
     "node-cron": "^3.0.3",
+    "nodemon": "^3.1.7",
     "passport": "^0.7.0",
     "passport-google-oauth20": "^2.0.0",
     "passport-jwt": "^4.0.1",
