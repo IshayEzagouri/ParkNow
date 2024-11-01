@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Navbar, NavbarBrand, NavbarMenuToggle, NavbarMenuItem, NavbarMenu, NavbarContent, NavbarItem, Button } from '@nextui-org/react';
-import { useAuth } from '../Context/authContext';
+import { useAuth } from '../Context/AuthContext';
 import { Link, useLocation } from 'react-router-dom';
 import ThemeSwitcher from './ThemeSwitcher';
 import { useTheme } from '../Context/ThemeContext';

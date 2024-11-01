@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@nextui-org/react';
-import { useAuth } from '../Context/authContext';
+import { useAuth } from '../Context/AuthContext';
 import backgroundImage8 from '../assets/images/HeroSection.jpg'; // Adjust the path as needed
 import { IconBrandTabler } from '@tabler/icons-react';
 
