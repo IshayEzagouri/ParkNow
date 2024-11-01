@@ -19,7 +19,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(helmet());
 // CORS configuration
 const corsOptions = {
-  origin: process.env.FRONTEND_URL,
+  origin: process.env.FRONTEND_URL || 'https://frontend-production-cb7a.up.railway.app' || 'http://localhost:3000',
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS']
 };
